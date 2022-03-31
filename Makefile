@@ -26,6 +26,7 @@ buildroot_rootfs_config := $(confdir)/buildroot_rootfs_config
 
 linux_srcdir := $(srcdir)/linux
 linux_wrkdir := $(wrkdir)/linux
+#linux_defconfig := $(confdir)/linux_defconfig
 linux_defconfig := $(confdir)/linux_u500vc707devkit_defconfig
 
 vmlinux := $(linux_wrkdir)/vmlinux
@@ -151,11 +152,15 @@ linux-menuconfig: $(linux_wrkdir)/.config
 $(bbl): $(pk_srcdir) $(vmlinux_stripped)
 	rm -rf $(pk_wrkdir)
 	mkdir -p $(pk_wrkdir)
+	ln -s ~/git_project/freedom-u-sdk/devicetree.dts $(pk_wrkdir)/devicetree.dts
+#	ln -s ~/git_project/HWDP_ROCKET/VC707ShellRocketASIC/replace_init/temporary_dtb.dts.old $(pk_wrkdir)/temporary_dtb.dts
+#	cp ~/git_project/chipyard/sims/verilator/generated-src/chipyard.TestHarness.RocketConfig/chipyard.TestHarness.RocketConfig.dts $(pk_wrkdir)/temporary_dtb.dts
 	cd $(pk_wrkdir) && $</configure \
 		--host=$(target) \
 		--with-payload=$(vmlinux_stripped) \
 		--enable-logo \
-		--with-logo=$(abspath conf/sifive_logo.txt)
+		--with-logo=$(abspath conf/jaewlee_logo.txt)
+#		--with-logo=$(abspath conf/sifive_logo.txt)
 	CFLAGS="-mabi=$(ABI) -march=$(ISA)" $(MAKE) -C $(pk_wrkdir)
 
 $(bin): $(bbl)
