@@ -18,4 +18,4 @@
 	url = https://github.com/SNU-ARC/riscv-fesvr.git
 [submodule "riscv-qemu"]
 	path = riscv-qemu
-	url = git://github.com/SNU-ARC/riscv-qemu.git
+	url = https://github.com/SNU-ARC/riscv-qemu.git
